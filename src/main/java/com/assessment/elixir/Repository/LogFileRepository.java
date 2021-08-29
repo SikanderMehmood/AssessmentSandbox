@@ -11,14 +11,5 @@ import java.util.List;
 @Repository
 public interface LogFileRepository extends JpaRepository<HttpAuditLogs,String> {
 
-    @Query(
-            value = "SELECT * FROM `http_audit_logs`\n" +
-                    "WHERE `date_time` >= @startDate\n" +
-                    "AND   `date_time` <  @endDate",
-            nativeQuery = true
-    )
-    List<HttpAuditLogs> findAllLogs(Date startDate, Date endDate);
-
-
     List<HttpAuditLogs> findByDateTimeBetween(Date start,Date end);
 }
