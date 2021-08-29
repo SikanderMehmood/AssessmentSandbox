@@ -9,6 +9,8 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -57,15 +59,13 @@ public class LogsExpert {
         return -1;
     }
 
-    private LocalDateTime extractDate(String log) {
+    private Date extractDate(String log) {
         if (datePresent(log)) {
             try {
                 Parser parser = new Parser();
                 List<LocalDateModel> dates = parser.parse(log);
                 String date1 = log.toLowerCase().subSequence(log.toLowerCase().indexOf(dates.get(0).getOriginalText()), log.toLowerCase().indexOf(dates.get(0).getOriginalText()) + 21).toString();
-                DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MMM/yyyy:HH:mm:ss");
-                DateTime dt = formatter.parseDateTime(date1.trim());
-                return LocalDateTime.parse(date1.trim(),formatter);
+                return  new SimpleDateFormat("dd/MMM/yyyy:HH:mm:ss").parse(date1);
             } catch (Exception ex) {
                 System.out.println("error extracting date -> " + ex.getMessage());
             }

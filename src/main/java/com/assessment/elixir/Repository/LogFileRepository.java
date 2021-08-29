@@ -1,13 +1,15 @@
 package com.assessment.elixir.Repository;
 
 import com.assessment.elixir.Entity.HttpAuditLogs;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @Repository
-public interface LogFileRepository extends MongoRepository<HttpAuditLogs,String> {
-    List<HttpAuditLogs> findAllLogs(Date valueOf, Date valueOf1);
+public interface LogFileRepository extends JpaRepository<HttpAuditLogs,String> {
+
+    List<HttpAuditLogs> findByDateTimeBetween(Date start,Date end);
 }
