@@ -20,7 +20,7 @@ public class HttpAuditLogs {
     @Column(length = 65555)
     @JsonDeserialize(using= LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
-    LocalDateTime dataTime;
+    LocalDateTime dateTime;
     String requestType;
     @Column(columnDefinition = "TEXT")
     String resourceurl;
@@ -29,9 +29,9 @@ public class HttpAuditLogs {
     public HttpAuditLogs() {
     }
 
-    public HttpAuditLogs(String url, LocalDateTime dataTime, String requestType, String resourceurl, String status) {
+    public HttpAuditLogs(String url, LocalDateTime dateTime, String requestType, String resourceurl, String status) {
         this.url = url;
-        this.dataTime = dataTime;
+        this.dateTime = dateTime;
         this.requestType = requestType;
         this.resourceurl = resourceurl;
         this.status = status;
@@ -46,11 +46,11 @@ public class HttpAuditLogs {
     }
 
     public LocalDateTime getDate() {
-        return dataTime;
+        return dateTime;
     }
 
     public void setDate(LocalDateTime date) {
-        this.dataTime = date;
+        this.dateTime = date;
     }
 
     public String getRequestType() {

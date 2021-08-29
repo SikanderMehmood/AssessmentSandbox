@@ -63,7 +63,7 @@ public class LogsExpert {
             try {
                 Parser parser = new Parser();
                 List<LocalDateModel> dates = parser.parse(log);
-              String  date1 = log.toLowerCase().subSequence(log.toLowerCase().indexOf(dates.get(0).getOriginalText()), log.toLowerCase().indexOf(dates.get(0).getOriginalText()) + 21).toString();
+                String date1 = log.toLowerCase().subSequence(log.toLowerCase().indexOf(dates.get(0).getOriginalText()), log.toLowerCase().indexOf(dates.get(0).getOriginalText()) + 21).toString();
                 DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MMM/yyyy:HH:mm:ss");
                 DateTime dt = formatter.parseDateTime(date1.trim());
                 return dt.toLocalDateTime();
