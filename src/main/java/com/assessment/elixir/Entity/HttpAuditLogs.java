@@ -2,12 +2,11 @@ package com.assessment.elixir.Entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import org.joda.time.DateTime;
+import com.fasterxml.jackson.datatype.joda.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.joda.ser.LocalDateTimeSerializer;
+import org.joda.time.LocalDateTime;
 
 import javax.persistence.*;
-import java.sql.Date;
 
 @Entity
 public class HttpAuditLogs {
@@ -19,9 +18,9 @@ public class HttpAuditLogs {
     int id;
     String url;
     @Column(length = 65555)
-    @JsonDeserialize(using= LocalDateDeserializer.class)
-    @JsonSerialize(using = LocalDateSerializer.class)
-    DateTime dataTime;
+    @JsonDeserialize(using= LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    LocalDateTime dataTime;
     String requestType;
     @Column(columnDefinition = "TEXT")
     String resourceurl;
@@ -30,7 +29,7 @@ public class HttpAuditLogs {
     public HttpAuditLogs() {
     }
 
-    public HttpAuditLogs(String url, DateTime dataTime, String requestType, String resourceurl, String status) {
+    public HttpAuditLogs(String url, LocalDateTime dataTime, String requestType, String resourceurl, String status) {
         this.url = url;
         this.dataTime = dataTime;
         this.requestType = requestType;
@@ -46,11 +45,11 @@ public class HttpAuditLogs {
         this.url = url;
     }
 
-    public DateTime getDate() {
+    public LocalDateTime getDate() {
         return dataTime;
     }
 
-    public void setDate(DateTime date) {
+    public void setDate(LocalDateTime date) {
         this.dataTime = date;
     }
 

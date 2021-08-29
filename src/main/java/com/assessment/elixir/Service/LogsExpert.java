@@ -4,6 +4,7 @@ import com.assessment.elixir.Entity.HttpAuditLogs;
 import net.rationalminds.LocalDateModel;
 import net.rationalminds.Parser;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Component;
@@ -57,8 +58,7 @@ public class LogsExpert {
     }
 
 
-    private DateTime extractDate(String log) {
-       // DateTime date = DateTime.parse("00/00/00");
+    private LocalDateTime extractDate(String log) {
         if (datePresent(log)) {
             try {
                 Parser parser = new Parser();
@@ -66,7 +66,7 @@ public class LogsExpert {
               String  date1 = log.toLowerCase().subSequence(log.toLowerCase().indexOf(dates.get(0).getOriginalText()), log.toLowerCase().indexOf(dates.get(0).getOriginalText()) + 21).toString();
                 DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MMM/yyyy:HH:mm:ss");
                 DateTime dt = formatter.parseDateTime(date1.trim());
-                return dt;
+                return dt.toLocalDateTime();
             } catch (Exception ex) {
                 System.out.println("error extracting date -> " + ex.getMessage());
             }
