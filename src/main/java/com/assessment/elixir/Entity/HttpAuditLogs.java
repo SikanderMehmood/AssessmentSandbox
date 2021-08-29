@@ -1,14 +1,8 @@
 package com.assessment.elixir.Entity;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.joda.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.joda.ser.LocalDateTimeSerializer;
-import org.joda.time.LocalDateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.NonNull;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -33,7 +27,6 @@ public class HttpAuditLogs {
 
     public HttpAuditLogs() {
     }
-
 
     public HttpAuditLogs(String url, Date dateTime, String requestType, String resourceurl, String status) {
         this.url = url;
