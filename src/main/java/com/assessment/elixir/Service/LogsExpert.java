@@ -4,7 +4,6 @@ import com.assessment.elixir.Entity.HttpAuditLogs;
 import net.rationalminds.LocalDateModel;
 import net.rationalminds.Parser;
 import org.springframework.stereotype.Component;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
