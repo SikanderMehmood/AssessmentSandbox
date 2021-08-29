@@ -2,7 +2,6 @@ package com.assessment.elixir.Service;
 
 import com.assessment.elixir.Entity.HttpAuditLogs;
 import com.assessment.elixir.Repository.LogFileRepository;
-import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -48,4 +47,6 @@ public class LogFileService {
         LocalDateTime endDate = formatter.parseLocalDateTime(enddate.concat(":11:59:59"));
         return logFileRepository.findAllLogs(Date.valueOf(LocalDate.of(1967, 06, 22)), Date.valueOf(LocalDate.of(2022, 06, 22)));
     }
+
+
 }
