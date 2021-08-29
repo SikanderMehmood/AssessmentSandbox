@@ -5,8 +5,12 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.joda.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.joda.ser.LocalDateTimeSerializer;
 import org.joda.time.LocalDateTime;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class HttpAuditLogs {
@@ -17,10 +21,11 @@ public class HttpAuditLogs {
     @Column(name = "logId", nullable = false, columnDefinition = "int default 1")
     int id;
     String url;
-    @Column(length = 65555)
-    @JsonDeserialize(using= LocalDateTimeDeserializer.class)
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    LocalDateTime dateTime;
+    @NonNull
+    @DateTimeFormat(pattern = "dd/MMM/yyyy:HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
+    Date dateTime;
     String requestType;
     @Column(columnDefinition = "TEXT")
     String resourceurl;
@@ -29,7 +34,7 @@ public class HttpAuditLogs {
     public HttpAuditLogs() {
     }
 
-    public HttpAuditLogs(String url, LocalDateTime dateTime, String requestType, String resourceurl, String status) {
+    public HttpAuditLogs(String url, Date dateTime, String requestType, String resourceurl, String status) {
         this.url = url;
         this.dateTime = dateTime;
         this.requestType = requestType;
@@ -45,11 +50,11 @@ public class HttpAuditLogs {
         this.url = url;
     }
 
-    public LocalDateTime getDate() {
+    public Date getDate() {
         return dateTime;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(Date date) {
         this.dateTime = date;
     }
 
