@@ -3,6 +3,9 @@ package com.assessment.elixir.Service;
 import com.assessment.elixir.Entity.HttpAuditLogs;
 import net.rationalminds.LocalDateModel;
 import net.rationalminds.Parser;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -53,18 +56,22 @@ public class LogsExpert {
         return -1;
     }
 
-    private String extractDate(String log) {
-        String date = "Date in proper format not present";
+
+    private DateTime extractDate(String log) {
+       // DateTime date = DateTime.parse("00/00/00");
         if (datePresent(log)) {
             try {
                 Parser parser = new Parser();
                 List<LocalDateModel> dates = parser.parse(log);
-                date = log.toLowerCase().subSequence(log.toLowerCase().indexOf(dates.get(0).getOriginalText()), log.toLowerCase().indexOf(dates.get(0).getOriginalText()) + 21).toString();
+              String  date1 = log.toLowerCase().subSequence(log.toLowerCase().indexOf(dates.get(0).getOriginalText()), log.toLowerCase().indexOf(dates.get(0).getOriginalText()) + 21).toString();
+                DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MMM/yyyy:HH:mm:ss");
+                DateTime dt = formatter.parseDateTime(date1.trim());
+                return dt;
             } catch (Exception ex) {
-                date = "error extracting date -> " + ex.getMessage();
+                System.out.println("error extracting date -> " + ex.getMessage());
             }
         }
-        return date;
+        return null;
     }
 
     private boolean datePresent(String log) {

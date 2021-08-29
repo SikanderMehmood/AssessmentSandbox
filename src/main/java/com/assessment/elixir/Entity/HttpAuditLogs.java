@@ -1,23 +1,41 @@
 package com.assessment.elixir.Entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import org.joda.time.DateTime;
+
+import javax.persistence.*;
+import java.sql.Date;
+
+@Entity
 public class HttpAuditLogs {
 
+    @Id
+    @SequenceGenerator(name = "log_sequence", sequenceName = "log_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "log_sequence")
+    @Column(name = "logId", nullable = false, columnDefinition = "int default 1")
+    int id;
     String url;
-    String date;
+    @Column(length = 65555)
+    @JsonDeserialize(using= LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    DateTime dataTime;
     String requestType;
-    String completeUrl;
-    String httpResponse;
-    String message;
+    @Column(columnDefinition = "TEXT")
+    String resourceurl;
+    String status;
 
     public HttpAuditLogs() {
     }
 
-    public HttpAuditLogs(String url, String date, String requestType, String completeUrl, String httpResponse) {
+    public HttpAuditLogs(String url, DateTime dataTime, String requestType, String resourceurl, String status) {
         this.url = url;
-        this.date = date;
+        this.dataTime = dataTime;
         this.requestType = requestType;
-        this.completeUrl = completeUrl;
-        this.httpResponse = httpResponse;
+        this.resourceurl = resourceurl;
+        this.status = status;
     }
 
     public String getUrl() {
@@ -28,12 +46,12 @@ public class HttpAuditLogs {
         this.url = url;
     }
 
-    public String getDate() {
-        return date;
+    public DateTime getDate() {
+        return dataTime;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDate(DateTime date) {
+        this.dataTime = date;
     }
 
     public String getRequestType() {
@@ -45,19 +63,19 @@ public class HttpAuditLogs {
     }
 
     public String getCompleteUrl() {
-        return completeUrl;
+        return resourceurl;
     }
 
     public void setCompleteUrl(String completeUrl) {
-        this.completeUrl = completeUrl;
+        this.resourceurl = completeUrl;
     }
 
     public String getHttpResponse() {
-        return httpResponse;
+        return status;
     }
 
     public void setHttpResponse(String httpResponse) {
-        this.httpResponse = httpResponse;
+        this.status = httpResponse;
     }
 
 
