@@ -27,3 +27,16 @@ Sample GET calls
 ![get Call image](getCall.png)
 
 
+
+
+-----------------------------------
+#INSTALL FROM DOCKER_IMAGE
+
+commands :-
+
+**docker pull sikandermehmood/assessment**
+
+**docker run -p 8090 sikandermehmood/assessment**
+
+
+
