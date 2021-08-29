@@ -34,6 +34,7 @@ public class HttpAuditLogs {
     public HttpAuditLogs() {
     }
 
+
     public HttpAuditLogs(String url, Date dateTime, String requestType, String resourceurl, String status) {
         this.url = url;
         this.dateTime = dateTime;

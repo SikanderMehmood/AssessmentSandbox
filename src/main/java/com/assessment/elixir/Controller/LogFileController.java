@@ -25,6 +25,7 @@ public class LogFileController {
 
     @GetMapping(value = "/find")
     public List<HttpAuditLogs> findLogsForSpecificDate(@RequestParam String date) throws ParseException {
+
         return logFileService.findLogs(date);
     }
 
