@@ -2,9 +2,6 @@ package com.assessment.elixir.Service;
 
 import com.assessment.elixir.Entity.HttpAuditLogs;
 import com.assessment.elixir.Repository.LogFileRepository;
-import org.joda.time.LocalDateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,8 +10,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.sql.Date;
-import java.time.LocalDate;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,13 +38,13 @@ public class LogFileService {
     }
 
 
-    public List<HttpAuditLogs> findLogs(String date) {
-        String startdate = "01/01/2019";
-        String enddate = "12/12/2021";
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy:HH:mm:ss");
-        LocalDateTime start = formatter.parseDateTime(startdate.trim().concat(":00:00:00")).toLocalDateTime();
-        LocalDateTime endDate = formatter.parseLocalDateTime(enddate.concat(":11:59:59"));
-        return logFileRepository.findAllLogs(Date.valueOf(LocalDate.of(1967, 06, 22)), Date.valueOf(LocalDate.of(2022, 06, 22)));
+    public List<HttpAuditLogs> findLogs(String date) throws ParseException {
+
+        String startDate = date.concat(":00:00:00");
+        String endDate = date.concat(":23:59:59");
+        Date start = new SimpleDateFormat("dd/MM/yyyy:HH:mm:ss").parse(startDate);
+        Date end = new SimpleDateFormat("dd/MM/yyyy:HH:mm:ss").parse(endDate);
+        return logFileRepository.findByDateTimeAfter(start);
     }
 
 }

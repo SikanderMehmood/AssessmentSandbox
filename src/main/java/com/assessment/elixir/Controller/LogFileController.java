@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,7 @@ public class LogFileController {
     }
 
     @GetMapping(value = "/find")
-    public List<HttpAuditLogs> findLogsForSpecificDate(@RequestParam String date){
+    public List<HttpAuditLogs> findLogsForSpecificDate(@RequestParam String date) throws ParseException {
         return logFileService.findLogs(date);
     }
 

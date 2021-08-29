@@ -1,20 +1,12 @@
 package com.assessment.elixir.Entity;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.joda.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.joda.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.joda.ser.LocalDateSerializer;
-import com.fasterxml.jackson.datatype.joda.ser.LocalDateTimeSerializer;
-import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
+
+import java.util.Date;
 
 public class HttpAuditLogs {
 
     String url;
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    LocalDateTime date;
+    Date date;
     String requestType;
     String completeUrl;
     String httpResponse;
@@ -22,7 +14,7 @@ public class HttpAuditLogs {
     public HttpAuditLogs() {
     }
 
-    public HttpAuditLogs(String url, LocalDateTime date, String requestType, String completeUrl, String httpResponse) {
+    public HttpAuditLogs(String url, Date date, String requestType, String completeUrl, String httpResponse) {
         this.url = url;
         this.date = date;
         this.requestType = requestType;
@@ -38,11 +30,11 @@ public class HttpAuditLogs {
         this.url = url;
     }
 
-    public LocalDateTime getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
