@@ -3,6 +3,7 @@ package com.assessment.elixir.Service;
 import com.assessment.elixir.Entity.HttpAuditLogs;
 import com.assessment.elixir.Repository.LogFileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,7 +32,7 @@ public class LogFileService {
             if (log.length() > 1)
                 logs.add(logsExpert.parseSingleLine(log));
         }
-        return logFileRepository.saveAll(logs);
+        return logs;
     }
 
 }
