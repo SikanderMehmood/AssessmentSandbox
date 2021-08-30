@@ -1,11 +1,16 @@
 package com.assessment.elixir.Service;
 
 import com.assessment.elixir.Entity.HttpAuditLogs;
+import com.assessment.elixir.config.DateTimeSandbox;
 import net.rationalminds.LocalDateModel;
 import net.rationalminds.Parser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -13,6 +18,9 @@ import java.util.regex.Pattern;
 
 @Component
 public class LogsExpert {
+
+    @Autowired
+    private DateTimeSandbox dateTimeSandbox;
 
 
     public HttpAuditLogs parseSingleLine(String singleLog) {
@@ -55,18 +63,28 @@ public class LogsExpert {
         return -1;
     }
 
-    private Date extractDate(String log) {
+    private String extractDate(String log) {
         if (datePresent(log)) {
             try {
                 Parser parser = new Parser();
                 List<LocalDateModel> dates = parser.parse(log);
                 String date1 = log.toLowerCase().subSequence(log.toLowerCase().indexOf(dates.get(0).getOriginalText()), log.toLowerCase().indexOf(dates.get(0).getOriginalText()) + 21).toString();
-                return  new SimpleDateFormat("dd/MMM/yyyy:HH:mm:ss").parse(date1);
+                javaTimeSandbox(date1.trim());
+                return date1.trim();
             } catch (Exception ex) {
                 System.out.println("error extracting date -> " + ex.getMessage());
             }
         }
         return null;
+    }
+
+    private void javaTimeSandbox(String date1) {
+        Date date;
+
+        DateTimeSandbox sandbox = new DateTimeSandbox();
+        dateTimeSandbox.convertStringToDate(date1);
+
+
     }
 
     private boolean datePresent(String log) {

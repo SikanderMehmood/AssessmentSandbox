@@ -22,10 +22,10 @@ public class HttpAuditLogs {
     int id;
     String url;
     @NonNull
-    @DateTimeFormat(pattern = "dd/MMM/yyyy:HH:mm:ss")
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
-    Date dateTime;
+//    @DateTimeFormat(pattern = "dd/MMM/yyyy:HH:mm:ss")
+//    @Temporal(TemporalType.TIMESTAMP)
+//    @CreatedDate
+    String dateTime;
     String requestType;
     @Column(columnDefinition = "TEXT")
     String resourceurl;
@@ -34,7 +34,7 @@ public class HttpAuditLogs {
     public HttpAuditLogs() {
     }
 
-    public HttpAuditLogs(String url, Date dateTime, String requestType, String resourceurl, String status) {
+    public HttpAuditLogs(String url, String dateTime, String requestType, String resourceurl, String status) {
         this.url = url;
         this.dateTime = dateTime;
         this.requestType = requestType;
@@ -50,11 +50,11 @@ public class HttpAuditLogs {
         this.url = url;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return dateTime;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.dateTime = date;
     }
 
