@@ -18,7 +18,7 @@ public class LogsExpert {
         return new HttpAuditLogs(extractIpAddress(singleLog), extractDate(singleLog), extractRequestType(singleLog), extractCompleteRequestPath(singleLog), extractRequestStatus(singleLog));
     }
 
-    private String extractRequestStatus(String log) {
+    public String extractRequestStatus(String log) {
         try {
             int index = log.lastIndexOf('"');
             return log.substring(index + 1, index + 5).trim();
@@ -27,7 +27,7 @@ public class LogsExpert {
         }
     }
 
-    private String extractCompleteRequestPath(String log) {
+    public String extractCompleteRequestPath(String log) {
         try {
             return log.substring(log.indexOf("/", getIndexOfGetOrPost(log)), log.lastIndexOf('"'));
         } catch (Exception ex) {
@@ -35,7 +35,7 @@ public class LogsExpert {
         }
     }
 
-    private String extractRequestType(String log) {
+    public String extractRequestType(String log) {
         try {
             int index = getIndexOfGetOrPost(log);
             return log.substring(index, index + 4).trim();
@@ -45,7 +45,7 @@ public class LogsExpert {
 
     }
 
-    private int getIndexOfGetOrPost(String log) {
+    public int getIndexOfGetOrPost(String log) {
         try {
             return !log.contains("GET") ? log.indexOf("POST") : log.indexOf("GET");
         } catch (Exception ex) {
@@ -54,7 +54,7 @@ public class LogsExpert {
         return -1;
     }
 
-    private Date extractDate(String log) {
+    public Date extractDate(String log) {
         if (datePresent(log)) {
             try {
                 Parser parser = new Parser();
@@ -68,7 +68,7 @@ public class LogsExpert {
         return new Date();
     }
 
-    private boolean datePresent(String log) {
+    public boolean datePresent(String log) {
         try {
             Pattern p = Pattern.compile(".*([01]?[0-9]|2[0-3]):[0-5][0-9].*");
             Matcher m = p.matcher(log);
@@ -79,7 +79,7 @@ public class LogsExpert {
         }
     }
 
-    private String extractIpAddress(String log) {
+    public String extractIpAddress(String log) {
         try {
             String IPADDRESS_PATTERN = "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
             Pattern pattern = Pattern.compile(IPADDRESS_PATTERN);
